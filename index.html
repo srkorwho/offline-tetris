@@ -89,7 +89,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>🎮 Tetris Game</h1>
+        <h1>Tetris Game</h1>
         
         <div class="status" id="status">
             <span id="statusText">Checking connection...</span>
@@ -98,7 +98,7 @@
         <a href="tetris.html" class="play-button">PLAY NOW</a>
 
         <div class="info">
-            <h2>✨ Welcome</h2>
+            <h2>Welcome</h2>
             <ul>
                 <li>Works offline after first visit</li>
                
@@ -119,10 +119,10 @@
             
             if (navigator.onLine) {
                 statusDiv.className = 'status online';
-                statusText.textContent = '✅ Online - Game cached for offline play';
+                statusText.textContent = 'Online - Game cached for offline play';
             } else {
                 statusDiv.className = 'status offline';
-                statusText.textContent = '📴 Offline - Playing from cache';
+                statusText.textContent = 'Offline - Playing from cache';
             }
         }
 
@@ -131,4 +131,5 @@
         window.addEventListener('offline', updateStatus);
     </script>
 </body>
+
 </html>
