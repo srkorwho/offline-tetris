@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tetris Game - Playable Offline</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            text-align: center;
+            color: white;
+            max-width: 600px;
+        }
+
+        h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+            text-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+        }
+
+        .status {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+            font-size: 1.2em;
+        }
+
+        .status.online {
+            border: 2px solid #00ff00;
+        }
+
+        .status.offline {
+            border: 2px solid #ffff00;
+        }
+
+        .play-button {
+            display: inline-block;
+            background: rgba(0, 255, 255, 0.3);
+            color: white;
+            padding: 20px 40px;
+            font-size: 1.5em;
+            text-decoration: none;
+            border-radius: 15px;
+            border: 2px solid #00ffff;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+            transition: all 0.3s;
+            margin: 20px 0;
+        }
+
+        .play-button:hover {
+            background: rgba(0, 255, 255, 0.5);
+            transform: scale(1.05);
+        }
+
+        .info {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 30px;
+            text-align: left;
+        }
+
+        .info h2 {
+            margin-bottom: 10px;
+            color: #00ffff;
+        }
+
+        .info ul {
+            list-style-position: inside;
+            line-height: 1.8;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎮 Tetris Game</h1>
+        
+        <div class="status" id="status">
+            <span id="statusText">Checking connection...</span>
+        </div>
+
+        <a href="tetris.html" class="play-button">PLAY NOW</a>
+
+        <div class="info">
+            <h2>✨ Welcome</h2>
+            <ul>
+                <li>Works offline after first visit</li>
+               
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js')
+                .then(() => console.log('Service Worker registered'))
+                .catch(err => console.log('Service Worker error:', err));
+        }
+
+        function updateStatus() {
+            const statusDiv = document.getElementById('status');
+            const statusText = document.getElementById('statusText');
+            
+            if (navigator.onLine) {
+                statusDiv.className = 'status online';
+                statusText.textContent = '✅ Online - Game cached for offline play';
+            } else {
+                statusDiv.className = 'status offline';
+                statusText.textContent = '📴 Offline - Playing from cache';
+            }
+        }
+
+        updateStatus();
+        window.addEventListener('online', updateStatus);
+        window.addEventListener('offline', updateStatus);
+    </script>
+</body>
+</html>
